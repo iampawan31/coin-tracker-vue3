@@ -1,7 +1,7 @@
-<script setup lang="ts"></script>
-
 <template>
-  <div>Hello World</div>
+  <div class="container mx-auto h-full w-full">
+    <router-view />
+  </div>
 </template>
 
-<style></style>
+<script setup lang="ts"></script>
