@@ -1,9 +1,6 @@
 <template>
-  <div class="bg-slate-200 p-2 w-full max-w-xl rounded shadow">
-    <div
-      v-if="loading"
-      class="w-full min-h-screen h-96 flex items-center justify-center"
-    >
+  <div class="w-full h-full rounded shadow">
+    <div v-if="loading" class="w-full h-60 flex items-center justify-center">
       <FontAwesomeIcon
         size="4x"
         fixedWidth
@@ -12,52 +9,75 @@
         :icon="faCog"
       />
     </div>
-    <div v-else class="flex space-y-2 flex-col">
-      <div
-        v-for="(coin, index) in coinList"
-        :key="index"
-        class="bg-white p-2 rounded shadow justify-between flex items-center text-2xl"
-      >
-        <div class="flex space-x-4">
-          <img class="w-10 h-10" :src="coin.image" :alt="coin.name" />
-          <div>
+
+    <table v-else class="w-full text-sm text-left text-gray-800 rounded">
+      <thead class="text-xs text-gray-200 uppercase bg-gray-500 rounded">
+        <tr>
+          <th scope="col" class="px-6 py-3">Name</th>
+          <th scope="col" class="px-6 py-3">Shortcode</th>
+          <th scope="col" class="px-6 py-3">Current Price</th>
+          <th scope="col" class="px-6 py-3">Change (24H)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr
+          class="bg-white border-b"
+          v-for="(coin, index) in coins"
+          :key="index"
+        >
+          <td class="px-6 flex items-center py-4">
+            <img class="w-6 h-6 mr-4" :src="coin.image" :alt="coin.name" />
             {{ coin.name }}
-          </div>
-        </div>
-        <div class="flex items-center justify-center space-x">
-          <div>
+          </td>
+          <td class="px-6 py-4">
+            {{ coin.symbol.toUpperCase() }}
+          </td>
+          <td class="px-6 py-4">
+            {{
+              coin.current_price.toLocaleString('en-US', {
+                style: 'currency',
+                currency: 'INR',
+                maximumFractionDigits: 8,
+              })
+            }}
+          </td>
+          <td class="px-6 py-4">
             {{ `${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%` }}
-          </div>
-          <FontAwesomeIcon
-            fixedWidth
-            :class="
-              coin.price_change_percentage_24h > 0
-                ? 'text-green-600'
-                : 'text-red-600'
-            "
-            class="inline-flex self-center"
-            :icon="coin.price_change_percentage_24h > 0 ? faUpLong : faDownLong"
-          />
-        </div>
-      </div>
-    </div>
+            <FontAwesomeIcon
+              fixedWidth
+              :class="
+                coin.price_change_percentage_24h > 0
+                  ? 'text-green-600'
+                  : 'text-red-600'
+              "
+              class="inline-flex self-center"
+              :icon="
+                coin.price_change_percentage_24h > 0 ? faUpLong : faDownLong
+              "
+            />
+          </td>
+        </tr>
+      </tbody>
+    </table>
   </div>
 </template>
 
 <script setup lang="ts">
-import { PropType } from 'vue'
-import { CoinType } from '../utils/types'
+import { faCog, faDownLong, faUpLong } from '@fortawesome/free-solid-svg-icons'
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faDownLong, faUpLong, faCog } from '@fortawesome/free-solid-svg-icons'
+import { storeToRefs } from 'pinia'
+import { onMounted } from 'vue'
+import { useCoinStore } from '../stores/coin'
+import CoinCard from './CoinCard.vue'
 
-const props = defineProps({
-  coinList: {
-    type: Array as PropType<Array<CoinType>>,
-    required: true,
-  },
-  loading: {
-    type: Boolean,
-    required: true,
-  },
+const { coins, loading, error } = storeToRefs(useCoinStore())
+const { fetchCoins } = useCoinStore()
+
+onMounted(async () => {
+  await fetchCoins(
+    'inr',
+    'shiba-inu,siacoin,bittorrent,spell-token,bitrise-token,terrausd,floki-inu,dogelon-mars,starlink,safemoon-2,baby-doge-coin,saitama-inu,kishu-inu,bitcoin',
+    '24h'
+  )
 })
 </script>

@@ -27,3 +27,10 @@ export type CoinType = {
   last_updated: string
   price_change_percentage_24h_in_currency: number
 }
+
+export type CoinChartType = Array<[Number, Number]>
+
+export type CoinData = {
+  legend: Object
+  datasets: [Object]
+}
