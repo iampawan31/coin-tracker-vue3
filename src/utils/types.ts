@@ -25,7 +25,12 @@ export type CoinType = {
   atl_date: string
   roi: null
   last_updated: string
+  price_change_percentage_1h_in_currency: number
   price_change_percentage_24h_in_currency: number
+  price_change_percentage_7d_in_currency: number
+  sparkline_in_7d: {
+    price: []
+  }
 }
 
 export type CoinChartType = Array<[Number, Number]>
