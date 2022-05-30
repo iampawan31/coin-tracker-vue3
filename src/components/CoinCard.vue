@@ -5,8 +5,8 @@
   >
     <div class="flex flex-col w-full">
       <!-- Header -->
-      <div class="flex items-center justify-between w-full">
-        <div class="flex items-center space-x-4">
+      <div class="flex items-center w-full">
+        <div class="flex items-center flex-1 space-x-4">
           <img class="w-10 h-10" :src="coin.image" :alt="coin.name" />
           <div>
             {{ coin.name }} -
@@ -14,23 +14,31 @@
           </div>
         </div>
         <div class="flex items-center justify-center space-x">
-          <div>
-            {{ `${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%` }}
+          <div class="h-8 relative w-48">
+            <SparklineCard
+              :coinId="coin.id"
+              :name="coin.name"
+              :status="coin.price_change_percentage_7d_in_currency"
+              :spark-chart="coin.sparkline_in_7d.price"
+            />
           </div>
-          <FontAwesomeIcon
-            fixedWidth
-            :class="
-              coin.price_change_percentage_24h > 0
-                ? 'text-green-600'
-                : 'text-red-600'
-            "
-            class="inline-flex self-center"
-            :icon="coin.price_change_percentage_24h > 0 ? faUpLong : faDownLong"
-          />
         </div>
       </div>
       <!-- Body -->
-      <div>
+      <div class="w-full">
+        <div>
+          {{ `${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%` }}
+        </div>
+        <FontAwesomeIcon
+          fixedWidth
+          :class="
+            coin.price_change_percentage_24h > 0
+              ? 'text-green-600'
+              : 'text-red-600'
+          "
+          class="inline-flex self-center"
+          :icon="coin.price_change_percentage_24h > 0 ? faUpLong : faDownLong"
+        />
         <div>
           {{
             coin.current_price.toLocaleString('en-US', {
@@ -52,6 +60,7 @@ import { faDownLong, faUpLong } from '@fortawesome/free-solid-svg-icons'
 import { CoinType } from '../utils/types'
 import { getCoinMarketChart } from '../API'
 import CoinChart from './CoinChart.vue'
+import SparklineCard from './SparklineCard.vue'
 
 const coinChart = ref([])
 

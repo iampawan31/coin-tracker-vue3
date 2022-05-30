@@ -112,13 +112,15 @@
               "
             />
           </td>
-          <td class="px-6 py-4 h-6">
-            <SparklineCard
-              :coinId="coin.id"
-              :name="coin.name"
-              :status="coin.price_change_percentage_7d_in_currency"
-              :spark-chart="coin.sparkline_in_7d.price"
-            />
+          <td class="px-6 py-4">
+            <div class="h-auto rounded relative bg-gray-50 w-20">
+              <SparklineCard
+                :coinId="coin.id"
+                :name="coin.name"
+                :status="coin.price_change_percentage_7d_in_currency"
+                :spark-chart="coin.sparkline_in_7d.price"
+              />
+            </div>
           </td>
         </tr>
       </tbody>

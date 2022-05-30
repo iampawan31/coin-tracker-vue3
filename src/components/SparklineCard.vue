@@ -1,6 +1,6 @@
 <template>
   <div>
-    <canvas ref="canvasRef" :id="coinId" width="50px" height="50px" />
+    <canvas ref="canvasRef" :id="coinId" />
   </div>
 </template>
 
@@ -38,6 +38,11 @@ onMounted(() => {
       },
       options: {
         responsive: true,
+        elements: {
+          point: {
+            radius: 0,
+          },
+        },
         plugins: {
           legend: {
             display: false,

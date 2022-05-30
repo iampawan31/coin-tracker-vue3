@@ -1,7 +1,7 @@
 <template>
   <div class="bg-gray-300 h-full min-h-screen">
     <Header />
-    <div class="container mx-auto h-full w-full">
+    <div class="container mx-auto h-full w-full pt-10">
       <div class="w-full h-full flex flex-col items-center">
         <router-view />
       </div>
