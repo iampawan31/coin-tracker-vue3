@@ -28,14 +28,19 @@
       </thead>
       <tbody>
         <tr
-          class="bg-white border-b"
+          class="bg-white hover:bg-gray-100 transition border-b"
           v-for="(coin, index) in coins"
           :key="index"
         >
           <td class="px-6 py-4">{{ index + 1 }}</td>
-          <td class="px-6 flex items-center py-4">
-            <img class="w-6 h-6 mr-4" :src="coin.image" :alt="coin.name" />
-            {{ coin.name }} ({{ coin.symbol.toUpperCase() }})
+          <td class="px-6 py-4">
+            <router-link
+              :to="{ name: 'coin-detail', params: { id: coin.id } }"
+              class="flex items-center"
+            >
+              <img class="w-6 h-6 mr-4" :src="coin.image" :alt="coin.name" />
+              {{ coin.name }} ({{ coin.symbol.toUpperCase() }})
+            </router-link>
           </td>
           <td class="px-6 py-4">
             {{ coin.market_cap_rank ? coin.market_cap_rank : '-' }}
@@ -141,10 +146,12 @@ const { coins, loading, error } = storeToRefs(useCoinStore())
 const { fetchCoins } = useCoinStore()
 
 onMounted(async () => {
-  await fetchCoins(
-    'inr',
-    'shiba-inu,siacoin,bittorrent,spell-token,bitrise-token,terra-luna,floki-inu,dogelon-mars,starlink,safemoon-2,baby-doge-coin,saitama-inu,kishu-inu,bitcoin',
-    '1h,24h,7d'
-  )
+  if (coins.value.length === 0) {
+    await fetchCoins(
+      'inr',
+      'shiba-inu,siacoin,bittorrent,spell-token,bitrise-token,terra-luna,floki-inu,dogelon-mars,starlink,safemoon-2,baby-doge-coin,saitama-inu,kishu-inu,bitcoin',
+      '1h,24h,7d'
+    )
+  }
 })
 </script>

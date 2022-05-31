@@ -15,6 +15,8 @@ export const getCoinById = async (coinId: string) => {
 
   const res = await fetch(url)
   const data = await res.json()
+  console.log(data, 18)
+
   return data
 }
 
