@@ -1,7 +1,5 @@
 <template>
-  <div
-    class="bg-gradient-to-b from-cyan-400 to-pink-600 h-full min-h-screen py-6"
-  >
+  <div class="bg-white dark:bg-gray-500 h-full min-h-screen py-6">
     <!-- <Header /> -->
     <div class="container mx-auto h-full w-full">
       <router-view />

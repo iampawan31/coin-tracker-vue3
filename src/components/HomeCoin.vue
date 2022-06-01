@@ -1,6 +1,8 @@
 <template>
-  <div class="bg-black/70 backdrop-blur-sm rounded shadow p-2 w-full max-w-lg">
-    <div class="flex justify-between items-center">
+  <div
+    class="bg-black/70 backdrop-blur-sm relative rounded shadow w-full h-full max-w-lg"
+  >
+    <div class="flex justify-between items-center p-4">
       <div class="text-3xl text-white font-semibold">
         {{
           coin.current_price.toLocaleString('en-US', {
@@ -21,7 +23,7 @@
         {{ `${Math.abs(coin.price_change_percentage_24h).toFixed(2)}%` }}
       </div>
     </div>
-    <div class="my-2">
+    <div class="my-2 py-2">
       <SparklineCard
         :coinId="coin.id"
         :name="coin.name"
@@ -67,17 +69,17 @@
         1Y
       </button>
     </div> -->
-    <div>
+    <div class="p-4">
       <router-link
         :to="{ name: 'coin-detail', params: { id: coin.id } }"
-        class="flex items-center text-2xl text-white"
+        class="flex items-center text-lg text-white"
       >
         <img class="w-6 h-6 mr-2" :src="coin.image" :alt="coin.name" />
         {{ coin.name }} ({{ coin.symbol.toUpperCase() }})
       </router-link>
     </div>
     <div
-      class="bg-black/30 backdrop-blur-sm rounded shadow text-gray-100 p-4 my-2"
+      class="bg-black/30 backdrop-blur-sm rounded shadow text-gray-100 mt-2 p-4"
     >
       <div class="flex">
         <div class="w-1/2">All Time High</div>
