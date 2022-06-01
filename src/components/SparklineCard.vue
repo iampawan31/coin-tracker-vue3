@@ -8,7 +8,7 @@
 import { Chart, registerables } from 'chart.js'
 import 'chartjs-adapter-moment'
 import moment from 'moment'
-import { computed, defineProps, onMounted, PropType, ref } from 'vue'
+import { computed, onMounted, PropType, ref } from 'vue'
 import { chartOptions } from '../utils/config'
 import { getSparklineChartLabels } from '../utils/index'
 

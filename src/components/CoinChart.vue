@@ -7,7 +7,7 @@
 <script setup lang="ts">
 import { Chart, ChartData, ChartItem, registerables } from 'chart.js'
 import 'chartjs-adapter-moment'
-import { computed, defineProps, onMounted, PropType, ref } from 'vue'
+import { computed, onMounted, PropType, ref } from 'vue'
 import { chartOptions } from '../utils/config'
 import { CoinChartType } from '../utils/types'
 

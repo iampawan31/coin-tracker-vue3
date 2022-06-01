@@ -6,4 +6,5 @@
 
 <script setup lang="ts">
 import CoinList from '../components/CoinList.vue'
+import HomeCoin from '../components/HomeCoin.vue'
 </script>

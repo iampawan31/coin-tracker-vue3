@@ -28,7 +28,22 @@ export type CoinType = {
   price_change_percentage_1h_in_currency: number
   price_change_percentage_24h_in_currency: number
   price_change_percentage_7d_in_currency: number
+  sparkline_in_1h: {
+    price: []
+  }
+  sparkline_in_24h: {
+    price: []
+  }
   sparkline_in_7d: {
+    price: []
+  }
+  sparkline_in_14d: {
+    price: []
+  }
+  sparkline_in_30d: {
+    price: []
+  }
+  sparkline_in_1y: {
     price: []
   }
 }

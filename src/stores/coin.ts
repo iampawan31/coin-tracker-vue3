@@ -38,7 +38,7 @@ export const useCoinStore = defineStore({
         this.loading = false
       }
     },
-    async fetchCoinById(coinId: string) {
+    async fetchCoinById(coinId: string| string[]) {
       this.coin = {} as Coin
       this.loading = true
       this.error = null

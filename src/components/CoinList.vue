@@ -1,8 +1,8 @@
 <template>
-  <div class="w-full h-full rounded shadow">
+  <div class="w-full h-full">
     <div
       v-if="loading"
-      class="w-full h-60 flex bg-white items-center justify-center"
+      class="w-full h-60 flex bg-white items-center justify-center rounded shadow"
     >
       <FontAwesomeIcon
         size="4x"
@@ -12,8 +12,14 @@
         :icon="faCog"
       />
     </div>
+    <div
+      v-else
+      class="w-full text-sm text-left text-gray-800 grid grid-cols-3 gap-2"
+    >
+      <HomeCoin v-for="(coin, index) in coins" :key="index" :coin="coin" />
+    </div>
 
-    <table v-else class="w-full text-sm text-left text-gray-800 rounded">
+    <!-- <table v-else class="w-full text-sm text-left text-gray-800 rounded">
       <thead class="text-xs text-gray-200 uppercase bg-gray-500 rounded">
         <tr>
           <th scope="col" class="px-6 py-3">#</th>
@@ -129,7 +135,7 @@
           </td>
         </tr>
       </tbody>
-    </table>
+    </table> -->
   </div>
 </template>
 
@@ -141,6 +147,7 @@ import { onMounted } from 'vue'
 import { useCoinStore } from '../stores/coin'
 import CoinCard from './CoinCard.vue'
 import SparklineCard from './SparklineCard.vue'
+import HomeCoin from './HomeCoin.vue'
 
 const { coins, loading, error } = storeToRefs(useCoinStore())
 const { fetchCoins } = useCoinStore()
@@ -150,7 +157,7 @@ onMounted(async () => {
     await fetchCoins(
       'inr',
       'shiba-inu,siacoin,bittorrent,spell-token,bitrise-token,terra-luna,floki-inu,dogelon-mars,starlink,safemoon-2,baby-doge-coin,saitama-inu,kishu-inu,bitcoin',
-      '1h,24h,7d'
+      '1h,24h,7d,14d,30d,1y'
     )
   }
 })

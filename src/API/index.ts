@@ -10,12 +10,11 @@ export const getCoinList = async (
   return data
 }
 
-export const getCoinById = async (coinId: string) => {
+export const getCoinById = async (coinId: string | string[]) => {
   const url = `https://api.coingecko.com/api/v3/coins/${coinId}`
 
   const res = await fetch(url)
   const data = await res.json()
-  console.log(data, 18)
 
   return data
 }
