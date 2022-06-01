@@ -14,7 +14,7 @@
     </div>
     <div
       v-else
-      class="w-full text-sm text-left text-gray-800 grid grid-cols-4 gap-2"
+      class="w-full text-sm text-left text-gray-800 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4"
     >
       <HomeCoin v-for="(coin, index) in coins" :key="index" :coin="coin" />
     </div>
