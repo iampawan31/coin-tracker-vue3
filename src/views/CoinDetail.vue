@@ -71,6 +71,7 @@
           :name="coin?.name"
           :coinChart="coinChartData"
           class="h-72"
+          :status="coinChartDataStatus"
         />
         <div class="flex mt-8 px-2 justify-end w-full">
           <button
@@ -141,6 +142,50 @@
           </button>
         </div>
       </div>
+      <div class="grid grid-cols-4">
+        <div class="px-2 py-2">All Time High</div>
+        <div class="px-2 py-2">
+          {{
+            coin?.market_data?.ath?.inr.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'INR',
+              maximumFractionDigits: 8,
+            })
+          }}
+        </div>
+        <div class="px-2 py-2">All Time Low</div>
+        <div class="px-2 py-2">
+          {{
+            coin?.market_data?.atl?.inr.toLocaleString('en-US', {
+              style: 'currency',
+              currency: 'INR',
+              maximumFractionDigits: 8,
+            })
+          }}
+        </div>
+        <div class="px-2 py-2">Total Volume</div>
+        <div class="px-2 py-2">
+          {{
+            coin?.market_data?.total_volume.inr?.toLocaleString('en-US', {
+              notation: 'compact',
+              compactDisplay: 'long',
+              maximumFractionDigits: 2,
+            })
+          }}
+        </div>
+        <div class="px-2 py-2">Total Supply</div>
+        <div class="px-2 py-2">
+          {{
+            coin?.market_data?.total_supply?.toLocaleString('en-US', {
+              notation: 'compact',
+              compactDisplay: 'long',
+              maximumFractionDigits: 2,
+            })
+          }}
+        </div>
+      </div>
+      <div class="text-xl font-semibold mb-2 mt-6">About</div>
+      <div v-html="coin?.description?.en"></div>
     </div>
   </div>
 </template>
@@ -160,6 +205,25 @@ const { coin, coinChartData, loading, coinChartDataLoading, error } =
 const { fetchCoinById, fetchCoinChartData } = useCoinStore()
 
 const activeSparkTime = ref('1h')
+
+const coinChartDataStatus = computed(() => {
+  switch (activeSparkTime.value) {
+    case '1h':
+      return coin?.value?.market_data?.price_change_percentage_24h > 0
+    case '24h':
+      return coin?.value?.market_data?.price_change_percentage_24h > 0
+    case '7d':
+      return coin?.value?.market_data?.price_change_percentage_7d > 0
+    case '14d':
+      return coin?.value?.market_data?.price_change_percentage_14d > 0
+    case '30d':
+      return coin?.value?.market_data?.price_change_percentage_30d > 0
+    case '1y':
+      return coin?.value?.market_data?.price_change_percentage_1y > 0
+    default:
+      return false
+  }
+})
 
 const getChartData = async (timeRange: string) => {
   activeSparkTime.value = timeRange

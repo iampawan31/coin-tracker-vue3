@@ -78,6 +78,12 @@ export type Coin = {
     current_price: {
       inr: number
     }
+    ath: {
+      inr: number
+    }
+    atl: {
+      inr: number
+    }
     price_change_24h: number
     price_change_percentage_24h: number
     price_change_percentage_7d: number
@@ -99,6 +105,9 @@ export type Coin = {
     price_change_percentage_1y_in_currency: Object
     market_cap_change_24h_in_currency: Object
     market_cap_change_percentage_24h_in_currency: Object
+    total_volume: {
+      inr: number
+    }
     total_supply: number
     max_supply: number
     circulating_supply: number

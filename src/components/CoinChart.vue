@@ -17,6 +17,7 @@ Chart.register(...registerables)
 const props = defineProps({
   coinId: { type: String, required: true },
   name: { type: String, required: true },
+  status: { type: Boolean, required: true },
   coinChart: { type: Array as PropType<CoinChartType>, required: true },
 })
 
@@ -51,7 +52,7 @@ onMounted(() => {
           {
             data: chartData.value,
             tension: 0.4,
-            borderColor: '#00aa00',
+            borderColor: props.status ? '#00aa00' : '#aa0000',
             cubicInterpolationMode: 'monotone',
           },
         ],
