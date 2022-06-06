@@ -1,7 +1,7 @@
 <template>
   <div class="bg-stone-200 dark:bg-stone-600 h-full min-h-screen pb-6">
     <Header />
-    <div class="container mx-auto h-full mt-5 w-full">
+    <div class="container mx-auto h-full mt-5 w-full px-2 lg:px-0">
       <router-view />
     </div>
   </div>

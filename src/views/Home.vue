@@ -15,31 +15,31 @@
       </div>
       <table
         v-else
-        class="w-full text-sm text-left text-stone-800 rounded shadow"
+        class="w-full text-sm text-left text-stone-800 rounded shadow table-auto"
       >
         <thead class="text-xs text-stone-200 uppercase bg-stone-700 rounded">
           <tr>
-            <th scope="col" class="px-2 py-2">#</th>
-            <th scope="col" class="px-2 py-2">Coin</th>
-            <th scope="col" class="px-2 py-2">Price</th>
-            <th scope="col" class="px-2 py-2">1h</th>
-            <th scope="col" class="px-2 py-2">24h</th>
-            <th scope="col" class="px-2 py-2">7d</th>
-            <th scope="col" class="px-2 py-2">All Time High</th>
-            <th scope="col" class="px-2 py-2">All Time Low</th>
-            <th scope="col" class="px-2 py-2">Total Volume</th>
-            <th scope="col" class="px-2 py-2">Total Supply</th>
-            <th scope="col" class="px-2 py-2">Last 7 Days</th>
+            <th class="px-2 py-2">#</th>
+            <th class="px-2 py-2">Coin</th>
+            <th class="px-2 py-2">Price</th>
+            <th class="px-2 py-2">1h</th>
+            <th class="px-2 py-2">24h</th>
+            <th class="px-2 py-2">7d</th>
+            <th class="px-2 py-2">All Time High</th>
+            <th class="px-2 py-2">All Time Low</th>
+            <th class="px-2 py-2">Total Volume</th>
+            <th class="px-2 py-2">Total Supply</th>
+            <th class="px-2 py-2">Last 7 Days</th>
           </tr>
         </thead>
         <tbody>
           <tr
-            class="bg-white hover:bg-stone-100 transition border-b"
+            class="bg-white hover:bg-stone-100 transition border-b dark:bg-stone-700 dark:text-stone-50 dark:hover:bg-stone-500 dark:border-stone-500"
             v-for="(coin, index) in coins"
             :key="index"
           >
             <td class="px-2 py-1">{{ index + 1 }}</td>
-            <td class="px-2 py-1">
+            <td class="px-2 py-1 text-sm lg:text-base">
               <router-link
                 :to="{ name: 'coin-detail', params: { id: coin.id } }"
                 class="flex items-center"
@@ -81,7 +81,7 @@
               />
             </td>
             <td
-              class="px-2 py-1 font-semibold"
+              class="px-2 py-1 font-semibold flex items-center"
               :class="
                 coin.price_change_percentage_24h > 0
                   ? 'text-green-600'
