@@ -1,5 +1,5 @@
 import { defineStore } from 'pinia'
-import { getCoinById, getCoinList } from '../API/index'
+import { getCoinById, getCoinList, getCoinMarketChart } from '../API/index'
 import { CoinType, Coin } from '../utils/types'
 
 interface CoinState {
@@ -7,6 +7,8 @@ interface CoinState {
   coin: Coin
   loading: boolean
   error: string | null | unknown
+  coinChartDataLoading: boolean
+  coinChartData: Array<any>
 }
 
 export const useCoinStore = defineStore({
@@ -16,6 +18,8 @@ export const useCoinStore = defineStore({
     coin: {} as Coin,
     loading: false,
     error: '',
+    coinChartDataLoading: false,
+    coinChartData: [],
   }),
   getters: {
     getCoins: (state) => state.coins,
@@ -32,22 +36,36 @@ export const useCoinStore = defineStore({
       this.error = null
       try {
         this.coins = await getCoinList(vsCurrency, coinList, priceChange)
-        this.loading = false
       } catch (error: unknown) {
         this.error = error
+      } finally {
         this.loading = false
       }
     },
-    async fetchCoinById(coinId: string| string[]) {
+    async fetchCoinById(coinId: string | string[]) {
       this.coin = {} as Coin
       this.loading = true
       this.error = null
       try {
         this.coin = await getCoinById(coinId)
-        this.loading = false
       } catch (error: unknown) {
         this.error = error
+      } finally {
         this.loading = false
+      }
+    },
+    async fetchCoinChartData(
+      coinId: string | string[],
+      vsCurrency: string,
+      days: string
+    ) {
+      try {
+        this.coinChartDataLoading = true
+        this.coinChartData = await getCoinMarketChart(coinId, vsCurrency, days)
+      } catch (error) {
+        this.error = error
+      } finally {
+        this.coinChartDataLoading = false
       }
     },
   },

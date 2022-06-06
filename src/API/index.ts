@@ -20,7 +20,7 @@ export const getCoinById = async (coinId: string | string[]) => {
 }
 
 export const getCoinMarketChart = async (
-  coinId: string,
+  coinId: string | string[],
   vsCurrency: string,
   days: string
 ) => {
