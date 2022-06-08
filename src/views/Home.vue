@@ -13,7 +13,10 @@
           :icon="faCog"
         />
       </div>
-      <table
+      <div v-else class="grid grid-cols-3 gap-4">
+        <CoinCardHome v-for="coin in coins" :key="coin.id" :coin="coin" />
+      </div>
+      <!-- <table
         v-else
         class="w-full text-sm text-left text-stone-800 rounded shadow table-auto"
       >
@@ -22,6 +25,7 @@
             <th class="px-2 py-2">#</th>
             <th class="px-2 py-2">Coin</th>
             <th class="px-2 py-2">Price</th>
+            ``
             <th class="px-2 py-2">1h</th>
             <th class="px-2 py-2">24h</th>
             <th class="px-2 py-2">7d</th>
@@ -168,7 +172,7 @@
             </td>
           </tr>
         </tbody>
-      </table>
+      </table> -->
     </div>
   </div>
 </template>
@@ -179,7 +183,7 @@ import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { storeToRefs } from 'pinia'
 import { onMounted } from 'vue'
 import { useCoinStore } from '../stores/coin'
-import SparklineCard from '../components/SparklineCard.vue'
+import CoinCardHome from '../components/CoinCardHome.vue'
 
 const { coins, loading, error } = storeToRefs(useCoinStore())
 const { fetchCoins } = useCoinStore()
