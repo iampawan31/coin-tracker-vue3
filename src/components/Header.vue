@@ -4,7 +4,10 @@
   >
     <div class="container mx-auto flex justify-between">
       <router-link to="/">Coin Tracker</router-link>
-      <button class="text-white hover:bg-stone-700 transition">
+      <button
+        @click="toggleModal"
+        class="text-white hover:bg-stone-700 transition"
+      >
         <FontAwesomeIcon
           fixedWidth
           class="inline-flex self-center fa-beat"
@@ -18,4 +21,7 @@
 <script setup lang="ts">
 import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
 import { faPlus } from '@fortawesome/free-solid-svg-icons'
+import { useAddCoinStore } from '../stores/addCoin'
+
+const { toggleModal } = useAddCoinStore()
 </script>
