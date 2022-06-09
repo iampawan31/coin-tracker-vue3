@@ -31,3 +31,12 @@ export const getCoinMarketChart = async (
 
   return data.prices
 }
+
+export const getCoinsByQueryString = async (queryString: string) => {
+  const url = `https://api.coingecko.com/api/v3/search?query=${queryString}`
+
+  const res = await fetch(url)
+  const data = await res.json()
+
+  return data.coins
+}

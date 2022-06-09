@@ -47,6 +47,7 @@ export const useCoinStore = defineStore({
   actions: {
     addFavoriteCoin(coin: string) {
       this.favoriteCoins.push(coin)
+      localStorage.setItem('favoriteCoins', JSON.stringify(this.favoriteCoins))
     },
     addFavoriteCoins(coins: Array<String> = defaultCoins) {
       this.favoriteCoins = coins

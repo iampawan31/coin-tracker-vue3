@@ -47,36 +47,25 @@
                     v-model="queryString"
                   />
                 </div>
-                <div class="grid grid-cols-2 h-96 gap-2 text-stone-700 px-4">
-                  <label
-                    v-for="coin in formattedCoinList"
-                    :for="coin.Name"
-                    :key="coin.Id"
-                  >
-                    <input type="checkbox" :name="coin.Name" :id="coin.Id" />
-                    <span class="ml-2">
-                      {{ coin.Name }}({{ coin.Symbol.toUpperCase() }})
-                    </span>
-                  </label>
+                <div class="h-fit pb-4">
+                  <div class="h-96 overflow-y-scroll text-stone-700 px-4">
+                    <AddCoinCard
+                      v-for="coin in coinList"
+                      :key="coin.id"
+                      :coin="coin"
+                      class="bg-stone-200 my-2 rounded shadow w-full p-2 font-semibold flex justify-between"
+                    />
+                  </div>
                 </div>
               </div>
-              <div
-                class="bg-gray-50 px-4 py-3 sm:px-6 sm:flex sm:flex-row-reverse"
-              >
+              <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse">
                 <button
                   type="button"
-                  class="w-full inline-flex justify-center rounded-md border border-transparent shadow-sm px-4 py-2 bg-green-600 text-base font-medium text-white hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 sm:ml-3 sm:w-auto sm:text-sm"
-                  @click=""
-                >
-                  Update
-                </button>
-                <button
-                  type="button"
-                  class="mt-3 w-full inline-flex justify-center rounded-md border border-gray-300 shadow-sm px-4 py-2 bg-white text-base font-medium text-gray-700 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 sm:mt-0 sm:ml-3 sm:w-auto sm:text-sm"
+                  class="mt-3 justify-end rounded-md border border-red-600 shadow-sm px-4 py-2 bg-red-600 text-base font-medium text-stone-100 hover:bg-red-500 focus:outline-none focus:ring-2"
                   @click="toggleModal"
                   ref="cancelButtonRef"
                 >
-                  Cancel
+                  Close
                 </button>
               </div>
             </DialogPanel>
@@ -88,7 +77,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch } from 'vue'
 import { useAddCoinStore } from '../stores/addCoin'
 import {
   Dialog,
@@ -96,24 +85,21 @@ import {
   TransitionChild,
   TransitionRoot,
 } from '@headlessui/vue'
-import { FontAwesomeIcon } from '@fortawesome/vue-fontawesome'
-import { faExclamation } from '@fortawesome/free-solid-svg-icons'
 import { storeToRefs } from 'pinia'
-import coinList from '../utils/coinList.json'
-import { computed } from '@vue/reactivity'
+import AddCoinCard from './AddCoinCard.vue'
 
-const queryString = ref('')
+const { coinList, showModal, queryString } = storeToRefs(useAddCoinStore())
+const { toggleModal, fetchCoinsUsingQueryString } = useAddCoinStore()
 
-const formattedCoinList = computed(() => {
-  const query = queryString.value.toLowerCase()
-  if (query.length === 0) {
-    return []
+const awaitingSearch = ref(false)
+
+watch(queryString, async (query) => {
+  if (!awaitingSearch.value) {
+    setTimeout(async () => {
+      await fetchCoinsUsingQueryString()
+      awaitingSearch.value = false
+    }, 300) // 1 sec delay
   }
-  return coinList
-    .filter((coin) => coin?.Name.toLowerCase().includes(query))
-    .slice(0, 15)
+  awaitingSearch.value = true
 })
-
-const { showModal } = storeToRefs(useAddCoinStore())
-const { toggleModal } = useAddCoinStore()
 </script>
