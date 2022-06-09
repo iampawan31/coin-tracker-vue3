@@ -29,7 +29,7 @@
             leave-to="opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
           >
             <DialogPanel
-              class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:max-w-lg sm:w-full"
+              class="relative bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 w-full sm:max-w-lg sm:w-full"
             >
               <div class="bg-white">
                 <div
@@ -53,7 +53,6 @@
                       v-for="coin in coinList"
                       :key="coin.id"
                       :coin="coin"
-                      class="bg-stone-200 my-2 rounded shadow w-full p-2 font-semibold flex justify-between"
                     />
                   </div>
                 </div>

@@ -45,9 +45,25 @@ export const useCoinStore = defineStore({
     getCoin: (state) => state.coin,
   },
   actions: {
-    addFavoriteCoin(coin: string) {
+    async addFavoriteCoin(coin: string) {
       this.favoriteCoins.push(coin)
       localStorage.setItem('favoriteCoins', JSON.stringify(this.favoriteCoins))
+      await this.fetchCoins(
+        'usd',
+        this.favoriteCoins.join(','),
+        '1h,24h,7d,14d,30d,1y'
+      )
+    },
+    async removeFavoriteCoin(coinToBeRemoved: string) {
+      this.favoriteCoins = this.favoriteCoins.filter(
+        (coin) => coin !== coinToBeRemoved
+      )
+      localStorage.setItem('favoriteCoins', JSON.stringify(this.favoriteCoins))
+      await this.fetchCoins(
+        'usd',
+        this.favoriteCoins.join(','),
+        '1h,24h,7d,14d,30d,1y'
+      )
     },
     addFavoriteCoins(coins: Array<String> = defaultCoins) {
       this.favoriteCoins = coins
