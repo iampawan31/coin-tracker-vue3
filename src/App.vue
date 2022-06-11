@@ -1,7 +1,9 @@
 <template>
-  <div class="bg-stone-100 dark:bg-stone-600 h-full min-h-screen pb-6">
-    <Header />
-    <div class="container mx-auto h-full mt-5 w-full px-2 lg:px-0">
+  <div
+    class="dark:bg-stone-600 h-full min-h-screen pb-6 bg-gradient-to-r from-red-200 via-red-300 to-yellow-200"
+  >
+    <div class="container mx-auto pt-6 h-full w-full max-w-2xl px-2">
+      <Header />
       <router-view />
     </div>
     <ManageCoinModal />

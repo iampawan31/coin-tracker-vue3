@@ -1,26 +1,35 @@
 <template>
-  <div class="bg-stone-50 rounded-lg shadow-lg hover:shadow-xl transition py-4">
-    <div class="flex flex-row w-full items-center justify-between pb-8 px-4">
-      <div class="text-xl">
-        <span>
-          {{ coin.name }}
-        </span>
-        <span class="text-sm"> ({{ coin.symbol.toUpperCase() }}) </span>
+  <div class="bg-stone-50 flex justify-between border-b p-4">
+    <div class="flex flex-col">
+      <div class="flex flex-row w-full items-center pb-2">
+        <img
+          class="w-6 h-6 lg:w-10 lg:h-10 mr-2"
+          :src="coin.image"
+          :alt="coin.name"
+        />
+        <div class="text-base lg:text-xl">
+          <router-link
+            class="font-semi mr-1 lg:mr-0 transition hover:cursor-pointer"
+            :to="{ name: 'coin-detail', params: { id: coin.id } }"
+          >
+            {{ coin.name }}
+          </router-link>
+          <span class="hidden lg:visible mr-2 text-sm">
+            ({{ coin.symbol.toUpperCase() }})
+          </span>
+        </div>
+        <div>
+          <button
+            @click="removeFavoriteCoin(coin.id)"
+            class="text-green-600 hover:text-yellow-500 transition"
+          >
+            <FontAwesomeIcon :icon="faStar" />
+          </button>
+        </div>
       </div>
-      <div>
-        <button
-          @click="removeFavoriteCoin(coin.id)"
-          class="text-green-600 hover:text-yellow-500 transition"
-        >
-          <FontAwesomeIcon :icon="faStar" />
-        </button>
-      </div>
-    </div>
-    <router-link :to="{ name: 'coin-detail', params: { id: coin.id } }">
-      <div class="flex flex-col justify-center items-center w-full">
-        <img class="w-14 h-14 mb-2" :src="coin.image" :alt="coin.name" />
+      <div class="flex flex-col w-full">
         <div
-          class="text-2xl font-bold"
+          class="text-lg lg:text-2xl font-bold"
           :class="
             coin.price_change_percentage_1h_in_currency > 0
               ? 'text-green-600'
@@ -45,8 +54,8 @@
           />
         </div>
       </div>
-    </router-link>
-    <div class="w-full h-fit">
+    </div>
+    <div class="w-28 bg-stone-200 py-2 rounded h-fit">
       <SparklineCard
         :coinId="coin.id"
         :name="coin.name"

@@ -13,14 +13,14 @@
   </div>
   <div v-else>
     <div
-      class="w-full max-w-2xl mx-auto bg-stone-50 dark:bg-stone-700 dark:text-stone-50 shadow rounded p-4"
+      class="w-full max-w-2xl mx-auto bg-stone-50 dark:bg-stone-700 dark:text-stone-50 shadow p-4"
     >
       <div class="flex justify-between items-center mb-6">
-        <div class="flex items-center text-xl lg:text-4xl font-semibold">
+        <div class="flex items-center text-base lg:text-4xl font-semibold">
           <img class="w-8 h-8 mr-2" :src="coin.image?.large" :alt="coin.name" />
           {{ coin.name }} ({{ coin.symbol?.toUpperCase() }})
         </div>
-        <div class="flex items-center space-x-2">
+        <div class="flex flex-col-reverse items-end lg:items-center space-x-2">
           <div class="text-lg lg:text-2xl">
             {{
               coin.market_data?.current_price?.inr.toLocaleString('en-US', {
@@ -36,7 +36,7 @@
                 ? 'text-green-100 bg-green-600'
                 : 'text-red-100 bg-red-600'
             "
-            class="px-2 text-xs rounded-3xl w-fit"
+            class="px-2 py-1 text-xs rounded-3xl w-fit"
           >
             {{
               `${Math.abs(
@@ -54,7 +54,7 @@
           </div>
         </div>
       </div>
-      <div class="bg-stone-100 dark:bg-stone-800 py-2 rounded">
+      <div class="bg-stone-200 dark:bg-stone-800 py-2 rounded">
         <div
           v-if="coinChartDataLoading"
           class="w-full h-48 lg:h-72 flex items-center justify-center mb-6"
@@ -188,7 +188,7 @@
           }}
         </div>
       </div>
-      <div class="text-4xl font-semibold mb-2 mt-6">About</div>
+      <div class="text-2xl lg:text-4xl font-semibold mb-2 mt-6">About</div>
       <div v-html="coin?.description?.en"></div>
     </div>
   </div>

@@ -1,5 +1,7 @@
 <template>
-  <div class="w-full min-full flex flex-col items-center space-y-4 pb-10">
+  <div
+    class="w-full mx-auto min-full flex flex-col items-center space-y-4 pb-10"
+  >
     <div class="w-full h-full">
       <div
         v-if="loading"
@@ -13,7 +15,7 @@
           :icon="faCog"
         />
       </div>
-      <div v-else class="grid grid-cols-1 md:grid-cols-3 gap-4">
+      <div v-else class="grid grid-cols-1">
         <CoinCardHome v-for="coin in coins" :key="coin.id" :coin="coin" />
       </div>
     </div>
